@@ -1,31 +1,34 @@
-import apiClient from "./api-client";
+import createApiClient, { AxiosInstance } from "./api-client";
 
 class HttpService {
     endpoint: string;
+    apiClient: AxiosInstance;
 
-    constructor(endpoint: string) {
+    constructor(endpoint: string, baseUrl: string) {
         this.endpoint = endpoint;
+        this.apiClient = createApiClient(baseUrl);
     }
 
     getAll<T>() {
         const controller = new AbortController();
-        const request = apiClient.get<T[]>(this.endpoint, { signal: controller.signal});
+        const request = this.apiClient.get<T[]>(this.endpoint, { signal: controller.signal});
         return { request, cancel: () => controller.abort() }
     }
 
     delete(id: Number) {
-        return apiClient.delete(this.endpoint + '/' + id);
+        return this.apiClient.delete(this.endpoint + '/' + id);
     }
     
     create<T>(entity: T) {
-        return apiClient.post(this.endpoint, entity);
+        return this.apiClient.post(this.endpoint, entity);
     }
 
     update<T>(entity: T) {
-        return apiClient.patch(this.endpoint, entity);
+        return this.apiClient.patch(this.endpoint, entity);
     }
 }
 
-const create = (endpoint: string) => new HttpService(endpoint);
+const create = (endpoint: string, baseUrl: string) => new HttpService(endpoint, baseUrl);
+
 
 export default create;

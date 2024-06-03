@@ -1,7 +1,10 @@
-import axios, { CanceledError }  from "axios";
+import axios, { CanceledError, AxiosInstance }  from "axios";
 
-export default axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com'
-});
+function createApiClient(baseURL: string) {
+  return axios.create({
+    baseURL,
+  });
+}
 
-export { CanceledError };
+export default createApiClient;
+export type { CanceledError, AxiosInstance };
