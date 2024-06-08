@@ -1,4 +1,6 @@
 import './App.css'
+import Auth from './componenets/auth';
+import Cart from './componenets/cart';
 import useUsers from './hooks/useUsers'
 
 function App() {
@@ -10,9 +12,13 @@ function App() {
     return (<p>{error}</p>)
 
   return (
+    <>
+    <Auth />
+    <Cart />
     <ul>
-      {users.map(user => <li>{user.name}</li>)}
+      {users.map((user, index) => <li key={index}>{user.name}</li>)}
     </ul>
+    </>
   )
 }
 
