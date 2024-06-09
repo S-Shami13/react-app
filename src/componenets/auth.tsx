@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { login, logout } from '../store/slices/authSlice';
+import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 const Auth: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -20,11 +22,11 @@ const Auth: React.FC = () => {
     <div>
       {token ? (
         <div>
-          <p>Logged in with token: {token}</p>
-          <button onClick={handleLogout}>Logout</button>
+          <Typography variant='body1'>Logged in with token: {token}</Typography>
+          <Button variant="outlined" color="secondary" onClick={handleLogout}>Logout</Button>
         </div>
       ) : (
-        <button onClick={handleLogin}>Login</button>
+        <Button variant="contained" color="primary" onClick={handleLogin}>Login</Button>
       )}
     </div>
   );
